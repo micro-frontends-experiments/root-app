@@ -1,8 +1,12 @@
 import './App.css';
 import MicroAppLoader from './MicroAppLoader';
 
-const MICRO_APP_1_HOST = 'http://localhost:3000'
-const MICRO_APP_2_HOST = 'http://localhost:3001'
+const MICRO_APP_1_HOST = process.env.NODE_ENV === 'production'
+    ? process.env.REACT_APP_MICRO_APP_1_PROD_HOST
+    : process.env.REACT_APP_MICRO_APP_1_DEV_HOST
+const MICRO_APP_2_HOST = process.env.NODE_ENV === 'production'
+    ? process.env.REACT_APP_MICRO_APP_2_PROD_HOST
+    : process.env.REACT_APP_MICRO_APP_2_DEV_HOST
 
 const MicroApp1 = ({history}) => (
     <MicroAppLoader history={history} host={MICRO_APP_1_HOST} name="MicroApp1"/>
@@ -13,6 +17,7 @@ const MicroApp2 = ({history}) => (
 )
 
 function App() {
+    console.log('process.env.NODE_ENV: ', process.env.NODE_ENV);
     return (
         <div className="App">
             <h1>Root App</h1>

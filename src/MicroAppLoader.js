@@ -6,8 +6,7 @@ class MicroAppLoader extends React.Component {
         const scriptId = `micro-frontend-script-${name}`;
 
         if (document.getElementById(scriptId)) {
-            this.renderMicroApp();
-            return;
+            return this.renderMicroApp();
         }
 
         fetch(`${host}/asset-manifest.json`)
