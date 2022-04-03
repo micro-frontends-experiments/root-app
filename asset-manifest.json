@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/micro-frontends-experiments/root-app/static/css/main.623fe36f.css",
+    "main.js": "/micro-frontends-experiments/root-app/static/js/main.647b0d87.js",
+    "static/js/787.382071de.chunk.js": "/micro-frontends-experiments/root-app/static/js/787.382071de.chunk.js",
+    "index.html": "/micro-frontends-experiments/root-app/index.html",
+    "main.623fe36f.css.map": "/micro-frontends-experiments/root-app/static/css/main.623fe36f.css.map",
+    "main.647b0d87.js.map": "/micro-frontends-experiments/root-app/static/js/main.647b0d87.js.map",
+    "787.382071de.chunk.js.map": "/micro-frontends-experiments/root-app/static/js/787.382071de.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.623fe36f.css",
+    "static/js/main.647b0d87.js"
+  ]
+}
