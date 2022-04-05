@@ -20,7 +20,7 @@ function App() {
     console.log('process.env.NODE_ENV: ', process.env.NODE_ENV);
     return (
         <div className="App">
-            <h1>Root App</h1>
+            <h1>Root App with Auto Deploying</h1>
             <div className="row">
                 <MicroApp1/>
                 <MicroApp2/>
