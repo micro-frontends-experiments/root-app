@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 class MicroAppLoader extends React.Component {
     componentDidMount() {
@@ -9,9 +10,8 @@ class MicroAppLoader extends React.Component {
             return this.renderMicroApp();
         }
 
-        fetch(`${host}/asset-manifest.json`)
-            .then(res => res.json())
-            .then(manifest => {
+        axios(`${host}/asset-manifest.json`)
+            .then(({data: manifest}) => {
                 console.log('manifest: ', manifest);
                 const script = document.createElement('script');
                 script.id = scriptId;
