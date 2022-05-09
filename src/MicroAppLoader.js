@@ -43,7 +43,7 @@ class MicroAppLoader extends React.Component {
 
   render() {
     const { name } = this.props;
-    return <div id={`${name}-container`} style={{ width: '100%' }} />;
+    return <div id={`${name}-container`} style={{ width: '100%', height: '100%' }} />;
   }
 }
 

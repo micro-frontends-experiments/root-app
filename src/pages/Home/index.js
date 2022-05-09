@@ -15,25 +15,35 @@ function MicroApp1({ history }) {
       host={MICRO_APP_1_HOST}
       name="MicroApp1"
       resolvers={{
-        getNotes,
+        resolveNotes: getNotes,
       }}
     />
   );
 }
 
 function MicroApp2({ history }) {
-  return <MicroAppLoader history={history} host={MICRO_APP_2_HOST} name="MicroApp2" />;
+  return (
+    <MicroAppLoader
+      history={history}
+      host={MICRO_APP_2_HOST}
+      name="MicroApp2"
+      resolvers={{
+        resolveNotes: getNotes,
+      }}
+    />
+  );
 }
 
 export default function Home() {
   console.log('home');
   return (
-    <>
-      <h1>Root App with Auto Deploying</h1>
-      <div className="row">
+    <div className="flex flex-row mx-auto h-screen px-4 py-4 justify-around">
+      <div className="basis-[48%]">
         <MicroApp1 />
+      </div>
+      <div className="basis-[48%]">
         <MicroApp2 />
       </div>
-    </>
+    </div>
   );
 }
