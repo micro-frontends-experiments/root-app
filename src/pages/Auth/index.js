@@ -1,28 +1,21 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { login } from '../../api/endpoints';
-import redirect from '../../helpers/redirect';
-import { getCookie, setCookie } from '../../helpers/cookies';
+import { setCookie } from '../../helpers/cookies';
 
-export default function AuthPage() {
+export default function AuthPage({ setIsAuth, setUserId }) {
   const {
     register, handleSubmit,
   } = useForm();
 
-  useEffect(() => {
-    console.log(getCookie('secret-token'));
-    if (getCookie('secret-token')) {
-      redirect('../home');
-    }
-  }, []);
-
   const onSubmit = handleSubmit(({ email, password }) => {
     console.log(email, password);
     login({ login: email, password })
-      .then(({ token }) => {
+      .then(({ token, userId }) => {
         if (token) {
           setCookie('secret-token', token);
-          redirect('../home');
+          setIsAuth(true);
+          setUserId(userId);
         }
       });
   });

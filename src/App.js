@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import {
   Route,
   Routes,
@@ -6,19 +7,38 @@ import {
 import AuthPage from './pages/Auth';
 import HomePage from './pages/Home';
 import './App.css';
+import { checkAuth } from './api/endpoints';
 
 function App() {
   console.log('process.env.NODE_ENV: ', process.env.NODE_ENV);
+  const [isAuth, setIsAuth] = useState(false);
+  const [userId, setUserId] = useState(null);
+
+  useEffect(() => {
+    checkAuth().then((res) => {
+      setUserId(res.userId);
+      setIsAuth(res.isAuth);
+    });
+  }, []);
 
   return (
     <div className="App">
       <Routes>
-        <Route path="/home" element={<HomePage />} />
-        <Route path="/auth" element={<AuthPage />} />
-        <Route
-          path="*"
-          element={<Navigate to="/home" replace />}
-        />
+        {isAuth && <Route path="/home" element={<HomePage isAuth={isAuth} userId={userId} />} />}
+        {!isAuth && <Route path="/auth" element={<AuthPage setIsAuth={setIsAuth} isAuth={isAuth} setUserId={setUserId} />} />}
+        {isAuth
+          ? (
+            <Route
+              path="*"
+              element={<Navigate to="/home" replace />}
+            />
+          )
+          : (
+            <Route
+              path="*"
+              element={<Navigate to="/auth" replace />}
+            />
+          )}
       </Routes>
     </div>
   );

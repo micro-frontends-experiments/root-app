@@ -17,12 +17,4 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-api.interceptors.response.use((response) => {
-  if (response.data.authRedirect) {
-    window.location.href = '../auth';
-  }
-
-  return response;
-});
-
 export default api;
