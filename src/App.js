@@ -4,7 +4,8 @@ import {
   Routes,
   Navigate,
 } from 'react-router-dom';
-import AuthPage from './pages/Auth';
+import LoginPage from './pages/Login';
+import CreateAccountPage from './pages/CreateAccount';
 import HomePage from './pages/Home';
 import './App.css';
 import { checkAuth } from './api/endpoints';
@@ -22,10 +23,16 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <div className="App h-screen">
       <Routes>
         {isAuth && <Route path="/home" element={<HomePage isAuth={isAuth} userId={userId} />} />}
-        {!isAuth && <Route path="/auth" element={<AuthPage setIsAuth={setIsAuth} isAuth={isAuth} setUserId={setUserId} />} />}
+        {!isAuth
+          && (
+          <>
+            <Route path="/login" element={<LoginPage setIsAuth={setIsAuth} setUserId={setUserId} />} />
+            <Route path="/create-account" element={<CreateAccountPage setIsAuth={setIsAuth} setUserId={setUserId} />} />
+          </>
+          )}
         {isAuth
           ? (
             <Route
@@ -36,7 +43,7 @@ function App() {
           : (
             <Route
               path="*"
-              element={<Navigate to="/auth" replace />}
+              element={<Navigate to="/login" replace />}
             />
           )}
       </Routes>

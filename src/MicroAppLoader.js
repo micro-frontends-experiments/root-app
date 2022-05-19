@@ -33,11 +33,11 @@ class MicroAppLoader extends React.Component {
 
   renderMicroApp = () => {
     const {
-      name, window, history, userId,
+      name, window, ...rest
     } = this.props;
 
     if (window[`render${name}`]) {
-      window[`render${name}`](`${name}-container`, history, userId);
+      window[`render${name}`](`${name}-container`, rest);
     }
   };
 

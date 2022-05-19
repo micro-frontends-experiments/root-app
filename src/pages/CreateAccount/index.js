@@ -1,16 +1,16 @@
+import { Link } from 'react-router-dom';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { login } from '../../api/endpoints';
+import { createAccount } from '../../api/endpoints';
 import { setCookie } from '../../helpers/cookies';
 
-export default function AuthPage({ setIsAuth, setUserId }) {
+export default function CreateAccountPage({ setIsAuth, setUserId }) {
   const {
     register, handleSubmit,
   } = useForm();
 
-  const onSubmit = handleSubmit(({ email, password }) => {
-    console.log(email, password);
-    login({ login: email, password })
+  const onSubmit = handleSubmit(({ email, ...rest }) => {
+    createAccount({ login: email, ...rest })
       .then(({ token, userId }) => {
         if (token) {
           setCookie('secret-token', token);
@@ -30,13 +30,43 @@ export default function AuthPage({ setIsAuth, setUserId }) {
             alt="Workflow"
           />
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Sign in to your
-            account
+            Create an account
           </h2>
         </div>
-        <form className="mt-8 space-y-6" onSubmit={onSubmit}>
-          <input type="hidden" name="remember" value="true" />
-          <div className="rounded-md shadow-sm -space-y-px">
+        <form className="mt-8 space-y-8" onSubmit={onSubmit}>
+          <div className="space-y-2">
+            <div>
+              <label htmlFor="name" className="sr-only">Name</label>
+              <input
+                id="name"
+                name="name"
+                type="text"
+                autoComplete="name"
+                required
+                className="appearance-none rounded-md relative
+                block w-full px-3 py-2 border border-gray-300 placeholder-gray-500
+                text-gray-900 focus:outline-none focus:ring-indigo-500
+                focus:border-indigo-500 focus:z-10 sm:text-sm"
+                placeholder="Name"
+                {...register('name')}
+              />
+            </div>
+            <div>
+              <label htmlFor="age" className="sr-only">Age</label>
+              <input
+                id="age"
+                name="age"
+                type="number"
+                autoComplete="age"
+                required
+                className="appearance-none rounded-md relative
+                block w-full px-3 py-2 border border-gray-300 placeholder-gray-500
+                text-gray-900 focus:outline-none focus:ring-indigo-500
+                focus:border-indigo-500 focus:z-10 sm:text-sm"
+                placeholder="Age"
+                {...register('age')}
+              />
+            </div>
             <div>
               <label htmlFor="email-address" className="sr-only">Email address</label>
               <input
@@ -45,7 +75,10 @@ export default function AuthPage({ setIsAuth, setUserId }) {
                 type="email"
                 autoComplete="email"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className="appearance-none
+                relative block w-full px-3 py-2 border border-gray-300
+                placeholder-gray-500 text-gray-900 rounded-md focus:outline-none
+                focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Email address"
                 {...register('email')}
               />
@@ -58,42 +91,18 @@ export default function AuthPage({ setIsAuth, setUserId }) {
                 type="password"
                 autoComplete="current-password"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className="appearance-none rounded-md
+                 relative block w-full px-3 py-2 border
+                 border-gray-300 placeholder-gray-500 text-gray-900
+                 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Password"
                 {...register('password')}
               />
             </div>
           </div>
 
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <input
-                id="remember-me"
-                name="remember-me"
-                type="checkbox"
-                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-              />
-              <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
-                {' '}
-                Remember
-                me
-                {' '}
-              </label>
-            </div>
-
-            <div className="text-sm">
-              <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                {' '}
-                Forgot your
-                password?
-                {' '}
-              </a>
-            </div>
-          </div>
-
           <div>
             <button
-              onSubmit={onSubmit}
               type="submit"
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
@@ -112,8 +121,14 @@ export default function AuthPage({ setIsAuth, setUserId }) {
                   />
                 </svg>
               </span>
-              Sign in
+              Create
             </button>
+          </div>
+
+          <div className="text-sm">
+            <Link className="font-medium text-indigo-600 hover:text-indigo-500" to="/login">
+              Already have an account?
+            </Link>
           </div>
         </form>
       </div>
