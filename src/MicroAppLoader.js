@@ -18,6 +18,13 @@ class MicroAppLoader extends React.Component {
         script.id = scriptId;
         script.crossOrigin = '';
         script.src = `${process.env.NODE_ENV === 'production' ? host.slice(0, host.lastIndexOf('/')) : host}${manifest.files['main.js']}`;
+        if (manifest.files['main.css']) {
+          const link = document.createElement('link');
+          link.type = 'text/css';
+          link.rel = 'stylesheet';
+          link.href = `${process.env.NODE_ENV === 'production' ? host.slice(0, host.lastIndexOf('/')) : host}${manifest.files['main.css']}`;
+        }
+
         script.onload = this.renderMicroApp;
         document.head.appendChild(script);
       });
