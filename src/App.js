@@ -25,25 +25,25 @@ function App() {
   return (
     <div className="App h-screen">
       <Routes>
-        {isAuth && <Route path="/home" element={<HomePage isAuth={isAuth} userId={userId} />} />}
+        {isAuth && <Route path="home" element={<HomePage isAuth={isAuth} userId={userId} />} />}
         {!isAuth
           && (
           <>
-            <Route path="/login" element={<LoginPage setIsAuth={setIsAuth} setUserId={setUserId} />} />
-            <Route path="/create-account" element={<CreateAccountPage setIsAuth={setIsAuth} setUserId={setUserId} />} />
+            <Route path="login" element={<LoginPage setIsAuth={setIsAuth} setUserId={setUserId} />} />
+            <Route path="create-account" element={<CreateAccountPage setIsAuth={setIsAuth} setUserId={setUserId} />} />
           </>
           )}
         {isAuth
           ? (
             <Route
               path="*"
-              element={<Navigate to="/home" replace />}
+              element={<Navigate to="home" replace />}
             />
           )
           : (
             <Route
               path="*"
-              element={<Navigate to="/login" replace />}
+              element={<Navigate to="login" replace />}
             />
           )}
       </Routes>
