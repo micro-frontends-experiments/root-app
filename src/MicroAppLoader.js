@@ -13,7 +13,6 @@ class MicroAppLoader extends React.Component {
 
     axios(`${host}/asset-manifest.json`)
       .then(({ data: manifest }) => {
-        console.log('manifest: ', manifest);
         const script = document.createElement('script');
         script.id = scriptId;
         script.crossOrigin = '';
